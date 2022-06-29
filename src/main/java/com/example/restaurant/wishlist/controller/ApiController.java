@@ -21,7 +21,7 @@ public class ApiController {
         return wishListService.search(query);
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public WishListDto add(@RequestBody WishListDto wishListDto){
         log.info("{}", wishListDto);
 
