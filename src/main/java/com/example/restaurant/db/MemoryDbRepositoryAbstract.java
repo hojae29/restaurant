@@ -1,9 +1,12 @@
 package com.example.restaurant.db;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public abstract class MemoryDbRepositoryAbstract<T extends MemoryDbEntity> implements MemoryDbRepositoryIfs<T>{
 
     private final List<T> db = new ArrayList<>();   // T는 MemoryDbEntity를 상속받으므로 getIndex()가 가능해진다
@@ -35,13 +38,13 @@ public abstract class MemoryDbRepositoryAbstract<T extends MemoryDbEntity> imple
     @Override
     public void deleteById(int index) {
         var optionalEntity = db.stream().filter(it -> it.getIndex() == index).findFirst();
-        if(!optionalEntity.isEmpty()){
+        if(optionalEntity.isPresent()){
             db.remove(optionalEntity.get());
         }
     }
 
     @Override
-    public List<T> listAll() {
+    public List<T> findAll() {
         return db;
     }
 }
